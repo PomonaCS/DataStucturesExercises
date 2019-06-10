@@ -27,7 +27,6 @@ public class BSTExercise<Key extends Comparable<Key>, Value> {
 			this.val = val;
 			this.N = N;
 		}
-
 	}
 
 	/**
