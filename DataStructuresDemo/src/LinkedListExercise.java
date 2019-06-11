@@ -77,14 +77,7 @@ public class LinkedListExercise<Item> implements Iterable<Item> {
 	 * @return  the removed item
 	 */
 	public Item removeFront() {
-		Item item = first.item;
-		first = first.next;
-
-		if (isEmpty())
-			last = null;
-
-		N--;
-		return item;
+		return null;
 	}
 
 	/**
@@ -145,6 +138,28 @@ public class LinkedListExercise<Item> implements Iterable<Item> {
 	private void rangeCheck(int index) {
 		if (index >= N || index < 0)
 			throw new IndexOutOfBoundsException("Index " + index + " out of bounds");
+	}
+	
+	/**
+	 * A method for converting the LinkedList to a String
+	 */
+	public String toString() {
+		if(isEmpty()) {
+			return "Doubly Linked List: []";
+		}
+		
+		String ret = "Doubly Linked List: [<- ";
+		Iterator<Item> i = this.iterator();
+		while (i.hasNext()) {
+			ret += i.next();
+			ret += " <-> ";
+		}
+		ret = ret.substring(0, ret.length() - 5);
+		
+		ret += " ->] First: ";
+		ret += first.item;
+		ret += ", Last: " + last.item;
+		return ret;
 	}
 
 	/**

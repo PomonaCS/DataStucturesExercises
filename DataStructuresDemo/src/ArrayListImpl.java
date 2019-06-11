@@ -23,7 +23,7 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 	 */
 	public ArrayListImpl() {
 		a = (Item[]) new Object[10];
-		N = 10;
+		N = 0;
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 	 */
 	public ArrayListImpl(int size) {
 		a = (Item[]) new Object[size];
-		N = size;
+		N = 0;
 	}
 
 	/** 
@@ -68,6 +68,8 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 			temp[i] = a[i];
 
 		a = temp;
+		
+		System.out.println(max);
 	}
 	
 	/**
@@ -91,6 +93,11 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 	 * @param item   the item to add 
 	 */
 	public void add(int index, Item item) {
+		if(isEmpty()) {
+			add(item);
+			return;
+		}
+		
 		rangeCheck(index);
 
 		if (N == a.length)
@@ -159,6 +166,7 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 		rangeCheck(index);
 
 		Item item = a[index];
+		N--;
 
 		for (int i = index; i < N; i++)
 			a[i] = a[i + 1];
@@ -223,6 +231,23 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 		if (index >= N || index < 0)
 			throw new IndexOutOfBoundsException("Index " + index + " out of bounds");
 	}
+	
+	public String toString() {
+		if(isEmpty()) {
+			return "ArrayList: []";
+		}
+		
+		String ret = "ArrayList: [";
+		
+		Iterator i = this.iterator();
+		while(i.hasNext()) {
+			ret += i.next();
+			ret += "; ";
+		}
+		
+		ret += "]";
+		return ret;
+	}
 
 	/**
 	 * A method for creating an iterator for the list
@@ -248,4 +273,31 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 		public void remove() {
 		}
 	}
+	
+	public static void main(String args[]) {
+		ArrayListImpl<Integer> al = new ArrayListImpl<Integer>();
+		System.out.println(al.isEmpty());
+		al.add(1);
+		al.add(2);
+		al.add(3);
+		System.out.println(al);
+		
+		al.set(1, 5);
+		System.out.println(al);
+		al.remove(2);
+		System.out.println(al);
+		
+		for(int i = 0; i < 30; i++)
+			al.add(i);
+			System.out.println(al);
+
+		
+		for(int i = 0; i < 30; i++)
+			al.remove();
+		
+		System.out.println(al.contains(1));
+		al.clear();
+		System.out.println(al);
+		al.get(20);
+	}	
 }
