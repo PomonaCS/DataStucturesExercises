@@ -15,14 +15,14 @@ import java.lang.IndexOutOfBoundsException;
  */
 @SuppressWarnings("unchecked")
 public class ArrayListImpl<Item> implements Iterable<Item> {
-	private Item[] a; // stack items
+	private Item[] a; // inner array of items
 	private int N; // number of items
 
 	/**
 	 * A default constructor that creates an ArrayList of size 10
 	 */
 	public ArrayListImpl() {
-		a = (Item[]) new Object[10];
+		a = (Item[]) new Object[16];
 		N = 0;
 	}
 
@@ -69,7 +69,6 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 
 		a = temp;
 		
-		System.out.println(max);
 	}
 	
 	/**
@@ -92,12 +91,7 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 	 * @param index  the place to add the element 
 	 * @param item   the item to add 
 	 */
-	public void add(int index, Item item) {
-		if(isEmpty()) {
-			add(item);
-			return;
-		}
-		
+	public void add(int index, Item item) {	
 		rangeCheck(index);
 
 		if (N == a.length)
@@ -239,7 +233,7 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 		
 		String ret = "ArrayList: [";
 		
-		Iterator i = this.iterator();
+		Iterator<Item> i = this.iterator();
 		while(i.hasNext()) {
 			ret += i.next();
 			ret += "; ";
@@ -253,21 +247,21 @@ public class ArrayListImpl<Item> implements Iterable<Item> {
 	 * A method for creating an iterator for the list
 	 */
 	public Iterator<Item> iterator() {
-		return new ReverseArrayIterator();
+		return new ArrayIterator();
 	}
 
 	/**
 	 * A subclass that defines the iterator
 	 */
-	private class ReverseArrayIterator implements Iterator<Item> { // Support LIFO iteration.
-		private int i = N;
+	private class ArrayIterator implements Iterator<Item> { // Support LIFO iteration.
+		private int i = 0;
 
 		public boolean hasNext() {
-			return i > 0;
+			return i < N;
 		}
 
 		public Item next() {
-			return a[--i];
+			return a[++i];
 		}
 
 		public void remove() {

@@ -22,8 +22,8 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * A default constructor that creates an ArrayList of size 10
 	 */
 	public ArrayListExercise() {
-		a = (Item[]) new Object[10];
-		N = 10;
+		a = (Item[]) new Object[16];
+		N = 0;
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @param size  the initial size of the ArrayList
 	 */
 	public ArrayListExercise(int size) {
-
+		// TODO Create a constructor that can create a list of variable initial size
 	}
 
 	/** 
@@ -41,6 +41,7 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @return true if the ArrayList is empty
 	 */
 	public boolean isEmpty() { return false; }
+	//TODO Create a correct isEmpty method
 
 	/**
 	 * Returns the number of elements in the list
@@ -48,6 +49,7 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @return the number of elements in the list
 	 */
 	public int size() { return 0; }
+	//TODO Create a correct method to determine the size
 	
 
 	/**
@@ -58,6 +60,10 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 */
 	private void resize(int max) { 
 		Item[] temp = (Item[]) new Object[max];
+		
+		// TODO Copy the elements from the old array to this array
+		
+		// TODO Set this array as the new one
 	}
 	
 	/**
@@ -82,6 +88,12 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 */
 	public void add(int index, Item item) {
 		rangeCheck(index);
+		
+		//TODO Check to see if a resize is needed
+		
+		//TODO Move the other elements over to the right
+		
+		//TODO Change the desired item
 	}
 	/**
 	 * Change an item at a specific index
@@ -91,7 +103,11 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @return 		 the item that was changed
 	 */
 	public Item set(int index, Item item) {
-		return null;
+		//TODO Check for a correct index
+		
+		//TODO Set the new item
+		
+		return null; //TODO Return the old item
 	}
 
 	/**
@@ -101,7 +117,7 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @return  	 the item at that index
 	 */
 	public Item get(int index) {
-		return null;
+		return null; //TODO Return the item at the desired index
 	}
 
 	/**
@@ -110,17 +126,13 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @return  the removed item
 	 */
 	public Item remove() {
-		if(isEmpty())
-			throw new NoSuchElementException("The list is empty");
+		//TODO Empty check
 		
-		Item item = a[--N];
-		a[N] = null; // Avoid loitering (see text).
+		//TODO Remove the item
 
-		// Resize to save space if possible
-		if (N > 0 && N == a.length / 4)
-			resize(a.length / 2);
+		//TODO Resize the array down if possible to save space
 
-		return item;
+		return null; //TODO Return the removed item
 	}
 
 	/**
@@ -130,6 +142,10 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @return		 the removed item
 	 */
 	public Item remove(int index) {
+		//TODO Implement a similar method to the above method, except at any index
+		
+		//TODO Move the other elements over
+		
 		return null;
 	}
 
@@ -150,6 +166,8 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * @return 		 the first index of the item
 	 */
 	public int indexOf(Item item) {
+		//TODO Go through and check when there is a match
+		
 		return -1;
 	}
 
@@ -163,6 +181,23 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 			a[i] = null;
 
 		N = 0;
+	}
+	
+	public String toString() {
+		if(isEmpty()) {
+			return "ArrayList: []";
+		}
+		
+		String ret = "ArrayList: [";
+		
+		Iterator<Item> i = this.iterator();
+		while(i.hasNext()) {
+			ret += i.next();
+			ret += "; ";
+		}
+		
+		ret += "]";
+		return ret;
 	}
 
 	/**
@@ -179,21 +214,21 @@ public class ArrayListExercise<Item> implements Iterable<Item> {
 	 * A method for creating an iterator for the list
 	 */
 	public Iterator<Item> iterator() {
-		return new ReverseArrayIterator();
+		return new ArrayIterator();
 	}
 
 	/**
 	 * A subclass that defines the iterator
 	 */
-	private class ReverseArrayIterator implements Iterator<Item> { // Support LIFO iteration.
-		private int i = N;
+	private class ArrayIterator implements Iterator<Item> { // Support LIFO iteration.
+		private int i = 0;
 
 		public boolean hasNext() {
-			return i > 0;
+			return i < N;
 		}
 
 		public Item next() {
-			return a[--i];
+			return a[++i];
 		}
 
 		public void remove() {

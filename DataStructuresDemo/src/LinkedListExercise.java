@@ -31,6 +31,7 @@ public class LinkedListExercise<Item> implements Iterable<Item> {
 	 * @return true if the DoublyLinkedList is empty
 	 */
 	public boolean isEmpty() { return false; } // Or: N == 0.
+	//TODO Implement a correct isEmpty method 
 
 	/**
 	 * Returns the number of elements in the list
@@ -38,102 +39,121 @@ public class LinkedListExercise<Item> implements Iterable<Item> {
 	 * @return the number of elements in the list
 	 */
 	public int size() {	return 0; }
+	//TODO Implement a correct size method 
 
 	/**
 	 * Inserts an item at the front of the list
 	 * 
-	 * @param item  the item to be inserted
+	 * @param item the item to be inserted
 	 */
 	public void insertFront(Item item) {
+		//TODO Save the old node
 		
+		//TODO Create new node and change the pointers
+		
+		//TODO Check for empty case
+		
+		//TODO Increment size counter
 	}
 
 	/**
 	 * Inserts an item at the back of the list
 	 * 
-	 * @param item  the item to be inserted
+	 * @param item the item to be inserted
 	 */
 	public void insertBack(Item item) {
-		// Save the old node
-		Node oldlast = last;
+		//TODO Save the old node
 		
-		// Change the pointers
-		last = new Node();
-		last.item = item;
-		last.next = null;
-		last.prev = oldlast;
-
-		if (isEmpty())
-			first = last;
-		else
-			oldlast.next = last;
-
-		N++;
+		//TODO Create new node and change the pointers
+				
+		//TODO Check for empty case
+				
+		//TODO Increment size counter
 	}
 
 	/**
 	 * Removes the item at the front of the list
 	 * 
-	 * @return  the removed item
+	 * @return the removed item
 	 */
 	public Item removeFront() {
-		return null;
+		return remove(0);
 	}
 
 	/**
 	 * Removes the item at the back of the list
 	 * 
-	 * @return  the removed item
+	 * @return the removed item
 	 */
 	public Item removeBack() {
-		return null;
+		return remove(N - 1);
 	}
 
 	/**
 	 * Inserts a node before a given indexed element
 	 * 
-	 * @param index  the index to insert the node before
-	 * @param item   the item to insert
-	 * @return		 the item at the given index
+	 * @param index the index to insert the node before
+	 * @param item  the item to insert
+	 * @return the item at the given index
 	 */
 	public Item insertBefore(int index, Item item) {
 		rangeCheck(index);
 
-		Node current = first;
-
-		// Go through and find the desired element
-		for (int i = 0; i < index; i++)
-			current = current.next;
-
+		//TODO Go through and find the desired element
 		
-		return current.item;
+		//TODO Set that item's pointers
+
+		//TODO Set the pointers on either side
+			// if empty, only set head and tail
+			// if at the front, correct for new front
+			// otherwise, set pointers for the ones before current
+			
+		return null; //TODO Return the item at the index
 	}
 
 	/**
 	 * Inserts a node after a given indexed element
 	 * 
-	 * @param index  the index to insert the node after
-	 * @param item   the item to insert
-	 * @return		 the item at the given index
+	 * @param index the index to insert the node after
+	 * @param item  the item to insert
+	 * @return the item at the given index
 	 */
 	public Item insertAfter(int index, Item item) {
-		return null;
+		rangeCheck(index);
+
+		//TODO Go through and find the desired element
+		
+		//TODO Set that item's pointers
+
+		//TODO Set the pointers on either side
+			// if empty, only set head and tail
+			// if at the tail, correct for new tail
+			// otherwise, set pointers for the ones after current
+			
+		return null; //TODO Return the item at the index
 	}
 
 	/**
 	 * Removes an item at the given index
 	 * 
-	 * @param index  the index to remove the item
-	 * @return		 the removed item
+	 * @param index the index to remove the item
+	 * @return the removed item
 	 */
-	public Item remove(int index){
-		return null;	
+	public Item remove(int index) {
+		rangeCheck(index);
+
+		//TODO Go through and find the desired element
+		
+		//TODO Change the pointers to eliminate the given node
+
+		return null;
+
 	}
 
 	/**
 	 * A helper method to check if an index is in range
 	 * 
-	 * @param index  the index to check
+	 * @param index the index to check
 	 */
 	private void rangeCheck(int index) {
 		if (index >= N || index < 0)
@@ -187,5 +207,9 @@ public class LinkedListExercise<Item> implements Iterable<Item> {
 			current = current.next;
 			return item;
 		}
+	}
+
+	public static void main(String args[]) {
+		
 	}
 }
