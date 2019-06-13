@@ -1,3 +1,5 @@
+package algs4;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.lang.IndexOutOfBoundsException;
@@ -9,7 +11,8 @@ import java.lang.IndexOutOfBoundsException;
  * It doubles the underlying array when it is full and halves the underlying
  * array when it is one-quarter full.
  * 
- * @author TODO: Your name
+ * @author Aden Siebel
+ * @author Alexandra Papoutsaki
  *
  */
 public class ArrayList<Item> implements Iterable<Item> {
@@ -30,8 +33,8 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList(int size) {
-		//TODO: fill the constructor
-
+		a = (Item[]) new Object[size];
+		n = 0;
 	}
 
 	/**
@@ -40,8 +43,7 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * @return true if the ArrayList is empty; false otherwise.
 	 */
 	public boolean isEmpty() {
-		//TODO: check whether is empty
-		return false;
+		return n == 0;
 	}
 
 	/**
@@ -50,8 +52,7 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * @return the number of elements in the ArrayList.
 	 */
 	public int size() {
-		//TODO: return number of elements in the ArrayList.
-		return 0;
+		return n;
 	}
 
 	/**
@@ -60,11 +61,15 @@ public class ArrayList<Item> implements Iterable<Item> {
 	@SuppressWarnings("unchecked")
 	private void resize(int capacity) {
 		assert capacity >= n;
+		// textbook implementation.
 		Item[] temp = (Item[]) new Object[capacity];
-		
-		// TODO Copy the elements from the old underlying array a to the temp array.
-		
-		// TODO Reference a to temp.
+		for (int i = 0; i < n; i++)
+			temp[i] = a[i];
+
+		a = temp;
+
+		// alternative implementation
+		// a = java.util.Arrays.copyOf(a, capacity);
 	}
 
 	/**
@@ -92,11 +97,14 @@ public class ArrayList<Item> implements Iterable<Item> {
 	public void add(int index, Item item) {
 		rangeCheck(index);
 
-		//TODO Check to see if doubling of the underlying array is needed, and if yes, perform it.
-		
-		//TODO Shift elements to the right to make space for new item.
-		
-		//TODO Set the new item at position index.
+		if (n == a.length)
+			resize(2 * a.length);
+
+		// shift elements to the right
+		for (int i = n++; i > index; i--)
+			a[i] = a[i - 1];
+
+		a[index] = item;
 	}
 
 	/**
@@ -109,11 +117,12 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * @return the old item that was changed.
 	 */
 	public Item set(int index, Item item) {
-		//TODO Check for a correct index
-		
-		//TODO Set the new item
-		
-		return null; //TODO Return the old item
+		rangeCheck(index);
+
+		Item old = a[index];
+		a[index] = item;
+
+		return old;
 	}
 
 	/**
@@ -124,7 +133,9 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * @return the item at the specified index.
 	 */
 	public Item get(int index) {
-		return null; //TODO Return the item at the desired index
+		rangeCheck(index);
+
+		return a[index];
 	}
 
 	/**
@@ -133,13 +144,17 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * @pre n>0
 	 */
 	public Item remove() {
-		//TODO Empty check
-		
-		//TODO Remove the item
+		if (isEmpty())
+			throw new NoSuchElementException("The list is empty");
 
-		//TODO Shrink the underlying array if its a quarter of it only is filled
+		Item item = a[--n];
+		a[n] = null; // Avoid loitering (see text).
 
-		return null; //TODO Return the removed item
+		// Shrink to save space if possible
+		if (n > 0 && n == a.length / 4)
+			resize(a.length / 2);
+
+		return item;
 	}
 
 	/**
@@ -150,11 +165,21 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * @return the removed item.
 	 */
 	public Item remove(int index) {
-		//TODO Implement a similar method to the above method, except at any index
-		
-		//TODO Move the other elements over
-		
-		return null;
+		rangeCheck(index);
+
+		Item item = a[index];
+		n--;
+
+		for (int i = index; i < n; i++)
+			a[i] = a[i + 1];
+
+		a[n] = null; // Avoid loitering (see text).
+
+		// shrink to save space if necessary
+		if (n > 0 && n == a.length / 4)
+			resize(a.length / 2);
+
+		return item;
 	}
 
 	/**
@@ -176,8 +201,16 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * @return the first index of the item.
 	 */
 	public int indexOf(Item item) {
-		//TODO Go through ArrayList and check when there is a match. Pay special attention to null case.
-		
+		if (item == null) { // Special check for null elements
+			for (int i = 0; i < n; i++)
+				if (a[i] == null)
+					return i;
+		} else { // Regular check
+			for (int i = 0; i < n; i++)
+				if (item.equals(a[i]))
+					return i;
+		}
+
 		return -1;
 	}
 
@@ -247,7 +280,28 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	public static void main(String args[]) {
-		//TODO: Create an ArrayList of Integers and experiment with the different operations.
-		//Always print the contents to see if they worked correctly.
+		ArrayList<Integer> al = new ArrayList<Integer>();
+		System.out.println(al.isEmpty());
+		al.add(1);
+		al.add(2);
+		al.add(3);
+		System.out.println(al);
+
+		al.set(1, 5);
+		System.out.println(al);
+		al.remove(2);
+		System.out.println(al);
+
+		for (int i = 0; i < 30; i++)
+			al.add(i);
+		System.out.println(al);
+
+		for (int i = 0; i < 30; i++)
+			al.remove();
+
+		System.out.println(al.contains(1));
+		al.clear();
+		System.out.println(al);
+		al.get(20);
 	}
 }
