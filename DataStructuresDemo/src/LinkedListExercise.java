@@ -40,6 +40,22 @@ public class LinkedListExercise<Item> implements Iterable<Item> {
 	 */
 	public int size() {	return 0; }
 	//TODO Implement a correct size method 
+	
+	/**
+	 * Returns the item at a given index
+	 * 
+	 * @param index  the index to get the item from
+	 * @return	     the value of the item at that index
+	 */
+	public Item get(int index) {
+		rangeCheck(index);
+		
+		// TODO Simple cases for the head and tail		
+		
+		// TODO Otherwise a slow iteration through the list
+		
+		return null;
+	}
 
 	/**
 	 * Inserts an item at the front of the list
@@ -86,7 +102,9 @@ public class LinkedListExercise<Item> implements Iterable<Item> {
 	 * @return the removed item
 	 */
 	public Item removeBack() {
-		return remove(N - 1);
+		// TODO Remove the back element and fix pointers
+		
+		return null;
 	}
 
 	/**

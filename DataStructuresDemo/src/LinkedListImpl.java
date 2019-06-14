@@ -44,6 +44,30 @@ public class LinkedListImpl<Item> implements Iterable<Item> {
 	}
 
 	/**
+	 * Returns the item at a given index
+	 * 
+	 * @param index the index to get the item from
+	 * @return the value of the item at that index
+	 */
+	public Item get(int index) {
+		rangeCheck(index);
+
+		// O(1) operations for certain cases
+		if (index == 0)
+			return first.item;
+
+		if (index == N - 1)
+			return last.item;
+
+		Node pointer = first;
+
+		for (int i = 0; i < index; i++)
+			pointer = pointer.next;
+
+		return pointer.item;
+	}
+
+	/**
 	 * Inserts an item at the front of the list
 	 * 
 	 * @param item the item to be inserted
@@ -104,7 +128,21 @@ public class LinkedListImpl<Item> implements Iterable<Item> {
 	 * @return the removed item
 	 */
 	public Item removeBack() {
-		return remove(N - 1);
+		Item ret = last.item;
+
+		if (isEmpty())
+			return null;
+
+		if (N != 1) {
+			last.prev.next = null;
+			last.prev = last;
+		}
+
+		last = last.prev;
+
+		N--;
+
+		return ret;
 	}
 
 	/**
@@ -234,15 +272,15 @@ public class LinkedListImpl<Item> implements Iterable<Item> {
 		if (index >= N || index < 0)
 			throw new IndexOutOfBoundsException("Index " + index + " out of bounds");
 	}
-	
+
 	/**
 	 * A method for converting the LinkedList to a String
 	 */
 	public String toString() {
-		if(isEmpty()) {
+		if (isEmpty()) {
 			return "Doubly Linked List: []";
 		}
-		
+
 		String ret = "Doubly Linked List: [<- ";
 		Iterator<Item> i = this.iterator();
 		while (i.hasNext()) {
@@ -250,7 +288,7 @@ public class LinkedListImpl<Item> implements Iterable<Item> {
 			ret += " <-> ";
 		}
 		ret = ret.substring(0, ret.length() - 5);
-		
+
 		ret += " ->] First: ";
 		ret += first.item;
 		ret += ", Last: " + last.item;
