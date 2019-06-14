@@ -11,6 +11,11 @@ public class Association<K, V> {
 	protected K key;
 	protected V value;
 	
+	Association(K key){
+		this.key = key;
+		value = null;
+	}
+	
 	Association(K key, V value){
 		this.key = key;
 		this.value = value;
@@ -23,13 +28,16 @@ public class Association<K, V> {
 	public V getValue() {
 		return value;
 	}
-	
-	public void setKey(K item) {
-		key = item;
-	}
-	
+
 	public void setValue(V item) {
 		value = item;
+	}
+	
+	public boolean equals(Association<K, V> other) {
+		if(other.getKey().equals(this.getKey()))
+			return true;
+					
+		return false;
 	}
 	
 	public String toString() {
