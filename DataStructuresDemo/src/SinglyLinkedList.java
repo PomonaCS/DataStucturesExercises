@@ -3,7 +3,7 @@ package algs4;
 import java.util.Iterator;
 
 /**
- * The {@code DoublyLinkedList} class represents a doubly linked list. It has
+ * The {@code SinglyLinkedList} class represents a singly linked list. It has
  * been implemented based on Sedgewick and Wayne's Algorithms textbook (4th
  * edition).
  * 
@@ -11,25 +11,23 @@ import java.util.Iterator;
  * @author Alexandra Papoutsaki
  *
  */
-public class DoublyLinkedList<Item> implements Iterable<Item> {
-	private Node first; // head of the doubly linked list
-	private Node last; // tail of the doubly linked list
-	private int n; // number of nodes in the doubly linked list
+public class SinglyLinkedList<Item> implements Iterable<Item> {
+	private Node first; // head of the singly linked list
+	private int n; // number of nodes in the singly linked list
 
 	/**
-	 * This nested class defines the nodes in the doubly linked list with a value
-	 * and pointers to the previous and next node they are connected.
+	 * This nested class defines the nodes in the singly linked list with a value
+	 * and pointer to the next node they are connected.
 	 */
 	private class Node {
 		Item item;
 		Node next;
-		Node prev;
 	}
 
 	/**
-	 * Checks if the DoublyLinkedList is empty.
+	 * Checks if the singlyLinkedList is empty.
 	 * 
-	 * @return true if the DoublyLinkedList is empty.
+	 * @return true if the singlyLinkedList is empty.
 	 */
 	public boolean isEmpty() {
 		return n == 0;
@@ -54,12 +52,6 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	public Item get(int index) {
 		rangeCheck(index);
 
-		if (index == 0)
-			return first.item;
-
-		else if (index == size() - 1)
-			return last.item;
-
 		Node finger = first;
 		// search for index-th element or end of list
 		while (index > 0) {
@@ -83,15 +75,8 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 		first = new Node();
 		first.item = item;
 		first.next = oldfirst;
-		first.prev = null;
 
-		// if first node to be added, adjust tail to it.
-		if (last == null)
-			last = first;
-		else
-			oldfirst.prev = first;
-
-		n++; // increase number of nodes in doubly linked list.
+		n++; // increase number of nodes in singly linked list.
 	}
 
 	/**
@@ -101,20 +86,21 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	 *            the contents of the node to be inserted.
 	 */
 	public void insertBack(Item item) {
-		// Save the old node
-		Node oldlast = last;
-
-		// Make a new node and assign it to tail. Fix pointers.
-		last = new Node();
-		last.item = item;
-		last.next = null;
-		last.prev = oldlast;
-
-		// if first node to be added, adjust head to it.
-		if (first == null)
-			first = last;
-		else
-			oldlast.next = last;
+		// create new node
+		Node temp = new Node();
+		temp.item = item;
+		temp.next = null;
+		// if at least one node already
+		if (first != null) {
+			// find tail and make temp the new tail
+			Node finger = first;
+			while (finger.next != null) {
+				finger = finger.next;
+			}
+			finger.next = temp;
+		} else {
+			first = temp;
+		}
 
 		n++;
 	}
@@ -125,20 +111,13 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	 * @return the contents of the removed node.
 	 */
 	public Item removeFront() {
-		Node oldFirst = first;
-		//Fix pointers.
+		Node temp = first;
+		// Fix pointers.
 		first = first.next;
-		//at least 1 nodes left.
-		if (first != null) {
-			first.prev = null;
-		} else {
-			last = null; // remove final node.
-		}
-		oldFirst.next = null;
-		
+
 		n--;
-		
-		return oldFirst.item;
+
+		return temp.item;
 	}
 
 	/**
@@ -147,18 +126,24 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	 * @return the contents of the removed node.
 	 */
 	public Item removeBack() {
-
-		Node temp = last;
-		last = last.prev;
-
-		// if there was only one node in the doubly linked list.
-		if (last == null) {
+		Node previous = null;
+		Node finger = first;
+		// search for tail
+		while (finger.next != null) {
+			previous = finger;
+			finger = finger.next;
+		}
+		// if exactly one element
+		if (previous == null) {
 			first = null;
 		} else {
-			last.next = null;
+			previous.next = null;
 		}
+
 		n--;
-		return temp.item;
+		// finger's value is old tail, return it
+		return finger.item;
+
 	}
 
 	/**
@@ -187,18 +172,14 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
                 finger = finger.next;
                 index--;
             }
-            // create new value to insert in correct position
-            
-            // create new value to insert in correct position
+            // create new value to insert in correct position.
             Node current = new Node();
-            current.item = item;
             current.next = finger;
-            current.prev = previous;
+            current.item = item;
+            // make previous value point to new value.
             previous.next = current;
-            finger.prev = current;
             
             n++;
-
 		}
 	}
 
@@ -217,21 +198,19 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 		} else if (index == size() - 1) {
 			return removeBack();
 		} else {
-	        Node previous = null;
-	        Node finger = first;
-	        // search for value indexed, keep track of previous
-	        while (index > 0)
-	        {
-	            previous = finger;
-	            finger = finger.next;
-	            index--;
-	        }
-	        previous.next = finger.next;
-	        finger.next.prev = previous;
-	        
-	        n--;
-	        // finger's value is old value, return it
-	        return finger.item;
+			Node previous = null;
+			Node finger = first;
+			// search for value indexed, keep track of previous
+			while (index > 0) {
+				previous = finger;
+				finger = finger.next;
+				index--;
+			}
+			previous.next = finger.next;
+
+			n--;
+			// finger's value is old value, return it
+			return finger.item;
 		}
 
 	}
@@ -252,10 +231,10 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	 */
 	public String toString() {
 		if (isEmpty()) {
-			return "Doubly Linked List: []";
+			return "Singly Linked List: []";
 		}
 
-		String ret = "Doubly Linked List: [<- ";
+		String ret = "Singly Linked List: [<- ";
 		Iterator<Item> i = this.iterator();
 		while (i.hasNext()) {
 			ret += i.next();
@@ -265,7 +244,6 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 
 		ret += " ->] First: ";
 		ret += first.item;
-		ret += ", Last: " + last.item;
 		return ret;
 	}
 
@@ -297,30 +275,30 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	public static void main(String args[]) {
-		DoublyLinkedList<Integer> dll = new DoublyLinkedList<Integer>();
-		dll.insertFront(1);
-		System.out.println(dll);
-		dll.insert(0, 2);
-		System.out.println(dll);
-		dll.insertBack(20);
-		System.out.println(dll);
-		dll.insertFront(30);
-		System.out.println(dll);
-		dll.removeFront();
-		System.out.println(dll);
-		dll.removeBack();
-		System.out.println(dll);
-		dll.removeBack();
-		System.out.println(dll);
-		dll.insertBack(1);
-		System.out.println(dll);
-		dll.insertFront(3);
-		System.out.println(dll);
-		dll.removeFront();
-		System.out.println(dll);
-		dll.removeFront();
-		System.out.println(dll);
-		dll.removeFront();
-		System.out.println(dll);
+		SinglyLinkedList<Integer> sll = new SinglyLinkedList<Integer>();
+		sll.insertFront(1);
+		System.out.println(sll);
+		sll.insert(0, 2);
+		System.out.println(sll);
+		sll.insertBack(20);
+		System.out.println(sll);
+		sll.insertFront(30);
+		System.out.println(sll);
+		sll.removeFront();
+		System.out.println(sll);
+		sll.removeBack();
+		System.out.println(sll);
+		sll.removeBack();
+		System.out.println(sll);
+		sll.insertBack(1);
+		System.out.println(sll);
+		sll.insertFront(3);
+		System.out.println(sll);
+		sll.removeFront();
+		System.out.println(sll);
+		sll.removeFront();
+		System.out.println(sll);
+		sll.removeFront();
+		System.out.println(sll);
 	}
 }
