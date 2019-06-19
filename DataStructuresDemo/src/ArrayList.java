@@ -20,7 +20,7 @@ public class ArrayList<Item> implements Iterable<Item> {
 	private int n; // number of items in arraylist
 
 	/**
-	 * Constructs an ArrayList with capacity of 2.
+	 * Constructs an ArrayList with an initial capacity of 2.
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList() {
@@ -29,34 +29,34 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Constructs an ArrayList with capacity of size.
+	 * Constructs an ArrayList with the specified capacity.
 	 */
 	@SuppressWarnings("unchecked")
-	public ArrayList(int size) {
-		a = (Item[]) new Object[size];
+	public ArrayList(int capacity) {
+		a = (Item[]) new Object[capacity];
 		n = 0;
 	}
 
 	/**
-	 * Checks if the ArrayList is empty.
+	 * Returns true if the ArrayList contains no items.
 	 * 
-	 * @return true if the ArrayList is empty; false otherwise.
+	 * @return true if the ArrayList does not contain any item
 	 */
 	public boolean isEmpty() {
 		return n == 0;
 	}
 
 	/**
-	 * Returns the number of elements in the ArrayList.
+	 * Returns the number of items in the ArrayList.
 	 * 
-	 * @return the number of elements in the ArrayList.
+	 * @return the number of items in the ArrayList
 	 */
 	public int size() {
 		return n;
 	}
 
 	/**
-	 * Resizes the ArrayList's capacity.
+	 * Resizes the ArrayList's capacity to the specified capacity.
 	 */
 	@SuppressWarnings("unchecked")
 	private void resize(int capacity) {
@@ -73,10 +73,10 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Adds an item to the end of the ArrayList, doubling its capacity if necessary.
+	 * Appends the item to the end of the ArrayList. Doubles its capacity if necessary.
 	 * 
 	 * @param item
-	 *            the item to add
+	 *            the item to be inserted
 	 */
 	public void add(Item item) {
 		if (n == a.length)
@@ -86,13 +86,13 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Adds an item to the ArrayList at a specific index, shifting existing elements
-	 * to the right, and doubling its capacity if necessary.
+	 * Inserts the item at the specified index. Shifts existing elements
+	 * to the right and doubles its capacity if necessary.
 	 * 
 	 * @param index
-	 *            the place to add the element
+	 *            the index to insert the item
 	 * @param item
-	 *            the item to add
+	 *            the item to be inserted
 	 */
 	public void add(int index, Item item) {
 		rangeCheck(index);
@@ -108,12 +108,12 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Replaces an item at a specific index with a new item. 
+	 * Replaces the item at the specified index with the specified item. 
 	 * 
 	 * @param index
-	 *            the index to replace the item.
+	 *            the index of the item to replace
 	 * @param item
-	 *            what to change the item to.
+	 *            item to be stored at specified index
 	 * @return the old item that was changed.
 	 */
 	public Item set(int index, Item item) {
@@ -126,11 +126,11 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Accesses an item at a specific index.
+	 * Returns the item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to access.
-	 * @return the item at the specified index.
+	 *            the index of the item to return
+	 * @return the item at the specified index
 	 */
 	public Item get(int index) {
 		rangeCheck(index);
@@ -139,8 +139,8 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Removes the item at the end of the ArrayList.
-	 * @return the removed item.
+	 * Retrieves and removes the item from the end of the ArrayList.
+	 * @return the removed item
 	 * @pre n>0
 	 */
 	public Item remove() {
@@ -158,11 +158,11 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Removes an item at a specific index.
+	 * Retrieves and removes the item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to remove the item.
-	 * @return the removed item.
+	 *            the index of the item to be removed
+	 * @return the removed item
 	 */
 	public Item remove(int index) {
 		rangeCheck(index);
@@ -183,11 +183,11 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Checks if the ArrayList contains a specific item.
+	 * Checks if the ArrayList contains the specified item.
 	 * 
 	 * @param item
-	 *            the item to check for.
-	 * @return true if the item is in the list.
+	 *            the item to check if it is included in the ArrayList
+	 * @return true if the item is in the list
 	 */
 	public boolean contains(Item item) {
 		return indexOf(item) >= 0;
@@ -197,8 +197,8 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * Check for the first index of an item in the ArrayList.
 	 * 
 	 * @param item
-	 *            the item to check for.
-	 * @return the first index of the item.
+	 *            the item to check for
+	 * @return the index of first occurrence of the specified item
 	 */
 	public int indexOf(Item item) {
 		if (item == null) { // Special check for null elements
@@ -215,7 +215,7 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Clears the ArrayList of all elements.
+	 * Clears the ArrayList of all items.
 	 */
 	public void clear() {
 
@@ -230,19 +230,22 @@ public class ArrayList<Item> implements Iterable<Item> {
 	 * A helper method to check if an index is in range 0<=index<n
 	 * 
 	 * @param index
-	 *            the index to check
+	 *            the index to check if it is within range
 	 */
 	private void rangeCheck(int index) {
 		if (index >= n || index < 0)
 			throw new IndexOutOfBoundsException("Index " + index + " out of bounds");
 	}
 
+	/**
+	 * Converts the ArrayList to a String.
+	 */
 	public String toString() {
 		if (isEmpty()) {
 			return "ArrayList: []";
 		}
 
-		String ret = "ArrayList: [";
+		String ret = "ArrayList of " + a.length + " capacity: [";
 
 		Iterator<Item> i = this.iterator();
 		while (i.hasNext()) {
@@ -255,16 +258,16 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for creating an iterator for the ArrayList
+	 * Constructs an iterator for the ArrayList
 	 */
 	public Iterator<Item> iterator() {
-		return new ArrayIterator();
+		return new ArrayListIterator();
 	}
 
 	/**
-	 * A subclass that defines the iterator.
+	 * A subclass that defines the iterator for the ArrayList.
 	 */
-	private class ArrayIterator implements Iterator<Item> {
+	private class ArrayListIterator implements Iterator<Item> {
 		private int i = 0;
 
 		public boolean hasNext() {
@@ -296,8 +299,10 @@ public class ArrayList<Item> implements Iterable<Item> {
 			al.add(i);
 		System.out.println(al);
 
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < 30; i++) {
+			System.out.println(al);
 			al.remove();
+		}
 
 		System.out.println(al.contains(1));
 		al.clear();

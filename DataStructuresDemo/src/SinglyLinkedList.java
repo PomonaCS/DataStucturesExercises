@@ -170,7 +170,7 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for converting the singly linked list to a String.
+	 * Converts the singly linked list to a String.
 	 */
 	public String toString() {
 		if (isEmpty()) {
@@ -191,16 +191,16 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for creating an iterator for the singly linked list.
+	 * Constructs an iterator for the singly linked list.
 	 */
 	public Iterator<Item> iterator() {
-		return new ListIterator();
+		return new SinglyLinkedListIterator();
 	}
 
 	/**
 	 * A subclass that defines the iterator for the singly linked list.
 	 */
-	private class ListIterator implements Iterator<Item> {
+	private class SinglyLinkedListIterator implements Iterator<Item> {
 		private Node current = first;
 
 		public boolean hasNext() {
