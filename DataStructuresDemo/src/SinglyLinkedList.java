@@ -30,7 +30,7 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	 * @return true if the singlyLinkedList is empty.
 	 */
 	public boolean isEmpty() {
-		return n == 0;
+		return n == 0; //or return first == null;
 	}
 
 	/**
