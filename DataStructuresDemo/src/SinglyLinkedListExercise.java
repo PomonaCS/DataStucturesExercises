@@ -24,29 +24,29 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Checks if the singlyLinkedList is empty.
+	 * Returns true if the singly linked list does not contain any item.
 	 * 
-	 * @return true if the singlyLinkedList is empty.
+	 * @return true if the singly linked list does not contain any item
 	 */
 	public boolean isEmpty() {
 		return false; // TODO fix
 	}
 
 	/**
-	 * Returns the number of elements in the list.
+	 * Returns the number of items in the singly linked list.
 	 * 
-	 * @return the number of elements in the list.
+	 * @return the number of items in the singly linked list
 	 */
 	public int size() {
 		return 0; // TODO fix
 	}
 
 	/**
-	 * c *
+	 * Returns item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to get the contents of node from.
-	 * @return the contents of node at given index.
+	 *            the index of the item to be returned
+	 * @return the item at specified index
 	 */
 	public Item get(int index) {
 		rangeCheck(index);
@@ -56,12 +56,12 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a new node with item contents at the front of the list.
+	 * Inserts the specified item at the head of the singly linked list.
 	 * 
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to be inserted
 	 */
-	public void insertFront(Item item) {
+	public void add(Item item) {
 		// TODO Save the old node
 
 		// TODO Make a new node and assign it to head. Fix pointers.
@@ -70,24 +70,27 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a new node with item contents at the back of the list.
+	 * Inserts the specified item at the specified index.
 	 * 
+	 * @param index
+	 *            the index to insert the node
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to insert
 	 */
-	public void insertBack(Item item) {
-		// TODO create new node
-		// TODO if at least one node already
-		// TODO find tail and make temp the new tail
-		// TODO increase number of nodes in singly linked list.
+	public void add(int index, Item item) {
+
+		// TODO Check edge cases for head and tail and reuse code from before
+		// TODO Otherwise, go through and find the desired node.
+		// TODO Create a new node and fix pointers.
+		// TODO Increase number of nodes
 	}
 
 	/**
-	 * Removes the node from the front of the list.
+	 * Retrieves and removes the head of the singly linked list.
 	 * 
-	 * @return the contents of the removed node.
+	 * @return the head of the singly linked list.
 	 */
-	public Item removeFront() {
+	public Item remove() {
 		// TODO Save the old node
 
 		// TODO Fix pointers
@@ -100,53 +103,24 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Removes the node from the back of the list.
-	 * 
-	 * @return the contents of the removed node.
-	 */
-	public Item removeBack() {
-		// TODO Follow basic idea behind removeFront to remove the back element
-
-		return null;
-
-	}
-
-	/**
-	 * Inserts a node at a given index.
+	 * Retrieves and removes the item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to insert the node
-	 * @param item
-	 *            the item to insert
-	 */
-	public void insert(int index, Item item) {
-		rangeCheck(index);
-
-		// TODO Check edge cases for head and tail and reuse code from before
-		// TODO Otherwise, go through and find the desired node.
-		// TODO Create a new node and fix pointers.
-		// TODO Increase number of nodes
-	}
-
-	/**
-	 * Removes an item at the given index
-	 * 
-	 * @param index
-	 *            the index to remove the item
-	 * @return the removed item
+	 *            the index of the item to be removed
+	 * @return the item previously at the specified index
 	 */
 	public Item remove(int index) {
 		rangeCheck(index);
 
-		// TODO Check edge cases for head and tail and reuse code from before
+		// TODO Check edge case for head and reuse code from before
 		// TODO Otherwise, go through and find the desired node.
 		// TODO Create a new node and fix pointers.
-		// TODO Increase number of nodes
+		// TODO Decrease number of nodes
 		return null;
 	}
 
 	/**
-	 * A helper method to check if an index is in range
+	 * A helper method to check if the specified index is in range.
 	 * 
 	 * @param index
 	 *            the index to check
@@ -157,7 +131,7 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for converting the LinkedList to a String
+	 * A method for converting the singly linked list to a String.
 	 */
 	public String toString() {
 		if (isEmpty()) {
@@ -178,14 +152,14 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for creating an iterator for the list
+	 * A method for creating an iterator for the singly linked list.
 	 */
 	public Iterator<Item> iterator() {
 		return new ListIterator();
 	}
 
 	/**
-	 * A subclass that defines the iterator
+	 * A subclass that defines the iterator for the singly linked.
 	 */
 	private class ListIterator implements Iterator<Item> {
 		private Node current = first;
@@ -205,7 +179,7 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	public static void main(String args[]) {
-		// TODO Create at least one singlys linked list and experiment with your
+		// TODO Create at least one singly linked list and experiment with your
 		// implemented methods.
 	}
 }

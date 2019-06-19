@@ -25,29 +25,29 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Checks if the singlyLinkedList is empty.
+	 * Returns true if the singly linked list does not contain any item.
 	 * 
-	 * @return true if the singlyLinkedList is empty.
+	 * @return true if the singly linked list does not contain any item
 	 */
 	public boolean isEmpty() {
-		return n == 0; //or return first == null;
+		return first == null; // return n == 0;
 	}
 
 	/**
-	 * Returns the number of elements in the list.
+	 * Returns the number of items in the singly linked list.
 	 * 
-	 * @return the number of elements in the list.
+	 * @return the number of items in the singly linked list
 	 */
 	public int size() {
 		return n;
 	}
 
 	/**
-	 * c *
+	 * Returns item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to get the contents of node from.
-	 * @return the contents of node at given index.
+	 *            the index of the item to be returned
+	 * @return the item at specified index
 	 */
 	public Item get(int index) {
 		rangeCheck(index);
@@ -62,12 +62,12 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a new node with item contents at the front of the list.
+	 * Inserts the specified item at the head of the singly linked list.
 	 * 
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to be inserted
 	 */
-	public void insertFront(Item item) {
+	public void add(Item item) {
 		// Save the old node
 		Node oldfirst = first;
 
@@ -80,37 +80,45 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a new node with item contents at the back of the list.
+	 * Inserts the specified item at the specified index.
 	 * 
+	 * @param index
+	 *            the index to insert the node
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to insert
 	 */
-	public void insertBack(Item item) {
-		// create new node
-		Node temp = new Node();
-		temp.item = item;
-		temp.next = null;
-		// if at least one node already
-		if (first != null) {
-			// find tail and make temp the new tail
-			Node finger = first;
-			while (finger.next != null) {
-				finger = finger.next;
-			}
-			finger.next = temp;
-		} else {
-			first = temp;
-		}
+	public void add(int index, Item item) {
+		rangeCheck(index);
 
-		n++;
+		if (index == 0) {
+			add(item);
+		} else {
+
+			Node previous = null;
+			Node finger = first;
+			// search for index-th position
+			while (index > 0) {
+				previous = finger;
+				finger = finger.next;
+				index--;
+			}
+			// create new value to insert in correct position.
+			Node current = new Node();
+			current.next = finger;
+			current.item = item;
+			// make previous value point to new value.
+			previous.next = current;
+
+			n++;
+		}
 	}
 
 	/**
-	 * Removes the node from the front of the list.
+	 * Retrieves and removes the head of the singly linked list.
 	 * 
-	 * @return the contents of the removed node.
+	 * @return the head of the singly linked list.
 	 */
-	public Item removeFront() {
+	public Item remove() {
 		Node temp = first;
 		// Fix pointers.
 		first = first.next;
@@ -121,82 +129,17 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Removes the node from the back of the list.
-	 * 
-	 * @return the contents of the removed node.
-	 */
-	public Item removeBack() {
-		Node previous = null;
-		Node finger = first;
-		// search for tail
-		while (finger.next != null) {
-			previous = finger;
-			finger = finger.next;
-		}
-		// if exactly one element
-		if (previous == null) {
-			first = null;
-		} else {
-			previous.next = null;
-		}
-
-		n--;
-		// finger's value is old tail, return it
-		return finger.item;
-
-	}
-
-	/**
-	 * Inserts a node at a given index.
+	 * Retrieves and removes the item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to insert the node
-	 * @param item
-	 *            the item to insert
-	 */
-	public void insert(int index, Item item) {
-		rangeCheck(index);
-
-		if (index == 0) {
-			insertFront(item);
-		} else if (index == size()) {
-			insertBack(item);
-		} else {
-
-            Node previous = null;
-            Node finger = first;
-            // search for index-th position
-            while (index > 0)
-            {
-                previous = finger;
-                finger = finger.next;
-                index--;
-            }
-            // create new value to insert in correct position.
-            Node current = new Node();
-            current.next = finger;
-            current.item = item;
-            // make previous value point to new value.
-            previous.next = current;
-            
-            n++;
-		}
-	}
-
-	/**
-	 * Removes an item at the given index
-	 * 
-	 * @param index
-	 *            the index to remove the item
-	 * @return the removed item
+	 *            the index of the item to be removed
+	 * @return the item previously at the specified index
 	 */
 	public Item remove(int index) {
 		rangeCheck(index);
 
 		if (index == 0) {
-			return removeFront();
-		} else if (index == size() - 1) {
-			return removeBack();
+			return remove();
 		} else {
 			Node previous = null;
 			Node finger = first;
@@ -216,7 +159,7 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A helper method to check if an index is in range
+	 * A helper method to check if the specified index is in range.
 	 * 
 	 * @param index
 	 *            the index to check
@@ -227,7 +170,7 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for converting the LinkedList to a String
+	 * A method for converting the singly linked list to a String.
 	 */
 	public String toString() {
 		if (isEmpty()) {
@@ -248,14 +191,14 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for creating an iterator for the list
+	 * A method for creating an iterator for the singly linked list.
 	 */
 	public Iterator<Item> iterator() {
 		return new ListIterator();
 	}
 
 	/**
-	 * A subclass that defines the iterator
+	 * A subclass that defines the iterator for the singly linked list.
 	 */
 	private class ListIterator implements Iterator<Item> {
 		private Node current = first;
@@ -276,29 +219,29 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 
 	public static void main(String args[]) {
 		SinglyLinkedList<Integer> sll = new SinglyLinkedList<Integer>();
-		sll.insertFront(1);
+		sll.add(1);
 		System.out.println(sll);
-		sll.insert(0, 2);
+		sll.add(0, 2);
 		System.out.println(sll);
-		sll.insertBack(20);
+		sll.add(20);
 		System.out.println(sll);
-		sll.insertFront(30);
+		sll.add(30);
 		System.out.println(sll);
-		sll.removeFront();
+		sll.remove();
 		System.out.println(sll);
-		sll.removeBack();
+		sll.remove();
 		System.out.println(sll);
-		sll.removeBack();
+		sll.remove();
 		System.out.println(sll);
-		sll.insertBack(1);
+		sll.add(1);
 		System.out.println(sll);
-		sll.insertFront(3);
+		sll.add(3);
 		System.out.println(sll);
-		sll.removeFront();
+		sll.remove();
 		System.out.println(sll);
-		sll.removeFront();
+		sll.remove();
 		System.out.println(sll);
-		sll.removeFront();
+		sll.remove();
 		System.out.println(sll);
 	}
 }
