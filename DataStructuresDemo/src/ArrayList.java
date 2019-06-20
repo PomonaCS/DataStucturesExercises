@@ -73,7 +73,8 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Appends the item to the end of the ArrayList. Doubles its capacity if necessary.
+	 * Appends the item to the end of the ArrayList. Doubles its capacity if
+	 * necessary.
 	 * 
 	 * @param item
 	 *            the item to be inserted
@@ -86,8 +87,8 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts the item at the specified index. Shifts existing elements
-	 * to the right and doubles its capacity if necessary.
+	 * Inserts the item at the specified index. Shifts existing elements to the
+	 * right and doubles its capacity if necessary.
 	 * 
 	 * @param index
 	 *            the index to insert the item
@@ -108,7 +109,7 @@ public class ArrayList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Replaces the item at the specified index with the specified item. 
+	 * Replaces the item at the specified index with the specified item.
 	 * 
 	 * @param index
 	 *            the index of the item to replace
@@ -140,6 +141,7 @@ public class ArrayList<Item> implements Iterable<Item> {
 
 	/**
 	 * Retrieves and removes the item from the end of the ArrayList.
+	 * 
 	 * @return the removed item
 	 * @pre n>0
 	 */

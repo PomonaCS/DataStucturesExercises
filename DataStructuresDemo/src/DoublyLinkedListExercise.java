@@ -7,7 +7,8 @@ import java.util.Iterator;
  * been implemented based on Sedgewick and Wayne's Algorithms textbook (4th
  * edition).
  * 
- * @author TODO: Your name
+ * @author Aden Siebel
+ * @author Alexandra Papoutsaki
  *
  */
 public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
@@ -26,9 +27,9 @@ public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Checks if the DoublyLinkedList is empty.
+	 * Returns true if the doubly linked list does not contain any item.
 	 * 
-	 * @return true if the DoublyLinkedList is empty.
+	 * @return true if the doubly linked list does not contain any item
 	 */
 	public boolean isEmpty() {
 		return false;
@@ -36,9 +37,9 @@ public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Returns the number of elements in the list.
+	 * Returns the number of items in the doubly linked list.
 	 * 
-	 * @return the number of elements in the list.
+	 * @return the number of items in the doubly linked list
 	 */
 	public int size() {
 		return 0;
@@ -46,11 +47,11 @@ public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * c *
+	 * Returns item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to get the contents of node from.
-	 * @return the contents of node at given index.
+	 *            the index of the item to be returned
+	 * @return the item at specified index
 	 */
 	public Item get(int index) {
 		rangeCheck(index);
@@ -63,106 +64,113 @@ public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a new node with item contents at the front of the list.
+	 * Inserts the specified item at the head of the doubly linked list.
 	 * 
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to be inserted
 	 */
-	public void insertFront(Item item) {
+	public void addFirst(Item item) {
 		// TODO Save the old node
 
 		// TODO Make a new node and assign it to head. Fix pointers.
 
 		// TODO if first node to be added, adjust tail to it.
 
-		// TODO increase number of nodes in doubly linked list.
+		// TODO increase number of items in doubly linked list.
 	}
 
 	/**
-	 * Inserts a new node with item contents at the back of the list.
+	 * Inserts the specified item at the tail of the doubly linked list.
 	 * 
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to be inserted
 	 */
-	public void insertBack(Item item) {
+	public void addLast(Item item) {
 		// TODO Save the old node
 
 		// TODO Make a new node and assign it to tail. Fix pointers.
 
 		// TODO if first node to be added, adjust head to it.
 
-		// TODO increase number of nodes in doubly linked list.
+		// TODO increase number of items in doubly linked list.
 	}
 
 	/**
-	 * Removes the node from the front of the list.
+	 * Inserts the specified item at the specified index.
 	 * 
-	 * @return the contents of the removed node.
+	 * @param index
+	 *            the index to insert the item
+	 * @param item
+	 *            the item to insert
 	 */
-	public Item removeFront() {
+	public void add(int index, Item item) {
+		rangeCheck(index);
+
+		// TODO Check edge cases for head and tail and reuse code from before
+
+		// TODO Otherwise, go through and find the desired item.
+
+		// TODO Create a new node and fix pointers.
+
+		// TODO Increase number of items
+	}
+
+	/**
+	 * Retrieves and removes the head of the doubly linked list.
+	 * 
+	 * @return the head of the doubly linked list.
+	 */
+	public Item removeFirst() {
 		// TODO Save the old node
 
 		// TODO Fix pointers
 
-		// TODO at least 1 nodes left or not
+		// TODO at least 1 node left or not
 
-		// TODO decrease number of nodes in doubly linked list
+		// TODO decrease number of items in doubly linked list
 
 		// TODO fix returned value
 		return null;
 	}
 
 	/**
-	 * Removes the node from the back of the list.
+	 * Retrieves and removes the tail of the doubly linked list.
 	 * 
-	 * @return the contents of the removed node.
+	 * @return the tail of the doubly linked list.
 	 */
-	public Item removeBack() {
+	public Item removeLast() {
 
-		// TODO Follow basic idea behind removeFront to remove the back element
+		// TODO Follow basic idea behind removeFirst to remove the tail
 
 		return null;
+
 	}
 
 	/**
-	 * Inserts a node at a given index.
+	 * Retrieves and removes the item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to insert the node
-	 * @param item
-	 *            the item to insert
-	 */
-	public void insert(int index, Item item) {
-		rangeCheck(index);
-
-		// TODO Check edge cases for head and tail and reuse code from before
-		// TODO Otherwise, go through and find the desired node.
-		// TODO Create a new node and fix pointers.
-		// TODO Increase number of nodes
-	}
-
-	/**
-	 * Removes an item at the given index
-	 * 
-	 * @param index
-	 *            the index to remove the item
-	 * @return the removed item
+	 *            the index of the item to be removed
+	 * @return the item previously at the specified index
 	 */
 	public Item remove(int index) {
 		rangeCheck(index);
 
 		// TODO Check edge cases for head and tail and reuse code from before
-		// TODO Otherwise, go through and find the desired node. You can use two
+
+		// TODO Otherwise, go through and find the desired item. You can use two
 		// pointers for ease.
+
 		// TODO Fix pointers.
-		// TODO Decrease number of nodes and return old node.
+
+		// TODO Decrease number of items and return old node.
 
 		return null;
 
 	}
 
 	/**
-	 * A helper method to check if an index is in range
+	 * A helper method to check if the specified index is in range.
 	 * 
 	 * @param index
 	 *            the index to check
@@ -173,7 +181,7 @@ public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for converting the LinkedList to a String
+	 * Converts the doubly linked list to a String.
 	 */
 	public String toString() {
 		if (isEmpty()) {
@@ -195,14 +203,14 @@ public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for creating an iterator for the list
+	 * Constructs an iterator for the doubly linked list.
 	 */
 	public Iterator<Item> iterator() {
 		return new ListIterator();
 	}
 
 	/**
-	 * A subclass that defines the iterator
+	 * A subclass that defines the iterator for the doubly linked list.
 	 */
 	private class ListIterator implements Iterator<Item> {
 		private Node current = first;
@@ -223,6 +231,6 @@ public class DoublyLinkedListExercise<Item> implements Iterable<Item> {
 
 	public static void main(String args[]) {
 		// TODO Create at least one doubly linked list and experiment with your
-		// implemented methods.
+		// implemented methods.s
 	}
 }

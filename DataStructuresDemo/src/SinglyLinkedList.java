@@ -30,7 +30,7 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	 * @return true if the singly linked list does not contain any item
 	 */
 	public boolean isEmpty() {
-		return first == null; // return n == 0;
+		return first == null; // size() == 0
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class SinglyLinkedList<Item> implements Iterable<Item> {
 	 * Inserts the specified item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to insert the node
+	 *            the index to insert the item
 	 * @param item
 	 *            the item to insert
 	 */

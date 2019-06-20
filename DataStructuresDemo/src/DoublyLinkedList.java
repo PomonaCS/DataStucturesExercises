@@ -27,29 +27,29 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Checks if the DoublyLinkedList is empty.
+	 * Returns true if the doubly linked list does not contain any item.
 	 * 
-	 * @return true if the DoublyLinkedList is empty.
+	 * @return true if the doubly linked list does not contain any item
 	 */
 	public boolean isEmpty() {
-		return n == 0; //or return first == null;
+		return size() == 0;
 	}
 
 	/**
-	 * Returns the number of elements in the list.
+	 * Returns the number of items in the doubly linked list.
 	 * 
-	 * @return the number of elements in the list.
+	 * @return the number of items in the doubly linked list
 	 */
 	public int size() {
 		return n;
 	}
 
 	/**
-	 * c *
+	 * Returns item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to get the contents of node from.
-	 * @return the contents of node at given index.
+	 *            the index of the item to be returned
+	 * @return the item at specified index
 	 */
 	public Item get(int index) {
 		rangeCheck(index);
@@ -70,12 +70,12 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a new node with item contents at the front of the list.
+	 * Inserts the specified item at the head of the doubly linked list.
 	 * 
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to be inserted
 	 */
-	public void insertFront(Item item) {
+	public void addFirst(Item item) {
 		// Save the old node
 		Node oldfirst = first;
 
@@ -95,12 +95,12 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a new node with item contents at the back of the list.
+	 * Inserts the specified item at the tail of the doubly linked list.
 	 * 
 	 * @param item
-	 *            the contents of the node to be inserted.
+	 *            the item to be inserted
 	 */
-	public void insertBack(Item item) {
+	public void addLast(Item item) {
 		// Save the old node
 		Node oldlast = last;
 
@@ -120,33 +120,70 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Removes the node from the front of the list.
+	 * Inserts the specified item at the specified index.
 	 * 
-	 * @return the contents of the removed node.
+	 * @param index
+	 *            the index to insert the item
+	 * @param item
+	 *            the item to insert
 	 */
-	public Item removeFront() {
+	public void add(int index, Item item) {
+		rangeCheck(index);
+
+		if (index == 0) {
+			addFirst(item);
+		} else if (index == size()) {
+			addLast(item);
+		} else {
+
+			Node previous = null;
+			Node finger = first;
+			// search for index-th position
+			while (index > 0) {
+				previous = finger;
+				finger = finger.next;
+				index--;
+			}
+			// create new value to insert in correct position
+			Node current = new Node();
+			current.item = item;
+			current.next = finger;
+			current.prev = previous;
+			previous.next = current;
+			finger.prev = current;
+
+			n++;
+		}
+	}
+
+	/**
+	 * Retrieves and removes the head of the doubly linked list.
+	 * 
+	 * @return the head of the doubly linked list.
+	 */
+	public Item removeFirst() {
 		Node oldFirst = first;
-		//Fix pointers.
+		// Fix pointers.
 		first = first.next;
-		//at least 1 nodes left.
+		// at least 1 nodes left.
 		if (first != null) {
 			first.prev = null;
 		} else {
 			last = null; // remove final node.
 		}
 		oldFirst.next = null;
-		
+
 		n--;
-		
+
 		return oldFirst.item;
 	}
 
 	/**
-	 * Removes the node from the back of the list.
+	 * Retrieves and removes the tail of the doubly linked list.
 	 * 
-	 * @return the contents of the removed node.
+	 * @return the tail of the doubly linked list.
 	 */
-	public Item removeBack() {
+	public Item removeLast() {
 
 		Node temp = last;
 		last = last.prev;
@@ -162,82 +199,40 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * Inserts a node at a given index.
+	 * Retrieves and removes the item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to insert the node
-	 * @param item
-	 *            the item to insert
-	 */
-	public void insert(int index, Item item) {
-		rangeCheck(index);
-
-		if (index == 0) {
-			insertFront(item);
-		} else if (index == size()) {
-			insertBack(item);
-		} else {
-
-            Node previous = null;
-            Node finger = first;
-            // search for index-th position
-            while (index > 0)
-            {
-                previous = finger;
-                finger = finger.next;
-                index--;
-            }
-            // create new value to insert in correct position
-            
-            // create new value to insert in correct position
-            Node current = new Node();
-            current.item = item;
-            current.next = finger;
-            current.prev = previous;
-            previous.next = current;
-            finger.prev = current;
-            
-            n++;
-
-		}
-	}
-
-	/**
-	 * Removes an item at the given index
-	 * 
-	 * @param index
-	 *            the index to remove the item
-	 * @return the removed item
+	 *            the index of the item to be removed
+	 * @return the item previously at the specified index
 	 */
 	public Item remove(int index) {
 		rangeCheck(index);
 
 		if (index == 0) {
-			return removeFront();
+			return removeFirst();
 		} else if (index == size() - 1) {
-			return removeBack();
+			return removeLast();
 		} else {
-	        Node previous = null;
-	        Node finger = first;
-	        // search for value indexed, keep track of previous
-	        while (index > 0)
-	        {
-	            previous = finger;
-	            finger = finger.next;
-	            index--;
-	        }
-	        previous.next = finger.next;
-	        finger.next.prev = previous;
-	        
-	        n--;
-	        // finger's value is old value, return it
-	        return finger.item;
+			Node previous = null;
+			Node finger = first;
+			// search for value indexed, keep track of previous
+			while (index > 0) {
+				previous = finger;
+				finger = finger.next;
+				index--;
+			}
+			previous.next = finger.next;
+			finger.next.prev = previous;
+
+			n--;
+			// finger's value is old value, return it
+			return finger.item;
 		}
 
 	}
 
 	/**
-	 * A helper method to check if an index is in range
+	 * A helper method to check if the specified index is in range.
 	 * 
 	 * @param index
 	 *            the index to check
@@ -248,7 +243,7 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for converting the LinkedList to a String
+	 * Converts the doubly linked list to a String.
 	 */
 	public String toString() {
 		if (isEmpty()) {
@@ -270,14 +265,14 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 	}
 
 	/**
-	 * A method for creating an iterator for the list
+	 * Constructs an iterator for the doubly linked list.
 	 */
 	public Iterator<Item> iterator() {
 		return new ListIterator();
 	}
 
 	/**
-	 * A subclass that defines the iterator
+	 * A subclass that defines the iterator for the doubly linked list.
 	 */
 	private class ListIterator implements Iterator<Item> {
 		private Node current = first;
@@ -298,29 +293,29 @@ public class DoublyLinkedList<Item> implements Iterable<Item> {
 
 	public static void main(String args[]) {
 		DoublyLinkedList<Integer> dll = new DoublyLinkedList<Integer>();
-		dll.insertFront(1);
+		dll.addFirst(1);
 		System.out.println(dll);
-		dll.insert(0, 2);
+		dll.add(0, 2);
 		System.out.println(dll);
-		dll.insertBack(20);
+		dll.addLast(20);
 		System.out.println(dll);
-		dll.insertFront(30);
+		dll.addFirst(30);
 		System.out.println(dll);
-		dll.removeFront();
+		dll.removeFirst();
 		System.out.println(dll);
-		dll.removeBack();
+		dll.removeLast();
 		System.out.println(dll);
-		dll.removeBack();
+		dll.removeLast();
 		System.out.println(dll);
-		dll.insertBack(1);
+		dll.addLast(1);
 		System.out.println(dll);
-		dll.insertFront(3);
+		dll.addFirst(3);
 		System.out.println(dll);
-		dll.removeFront();
+		dll.removeFirst();
 		System.out.println(dll);
-		dll.removeFront();
+		dll.removeFirst();
 		System.out.println(dll);
-		dll.removeFront();
+		dll.removeFirst();
 		System.out.println(dll);
 	}
 }

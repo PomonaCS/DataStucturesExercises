@@ -12,7 +12,7 @@ import java.util.Iterator;
  */
 public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	private Node first; // head of the singly linked list
-	private int n; // number of nodes in the singly linked list
+	private int n; // number of items in the singly linked list
 
 	/**
 	 * This nested class defines the nodes in the singly linked list with a value
@@ -51,7 +51,7 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	public Item get(int index) {
 		rangeCheck(index);
 		return null;
-		// TODO A slow iteration through the list to return index-th node.
+		// TODO A slow iteration through the list to return index-th item.
 
 	}
 
@@ -73,16 +73,16 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	 * Inserts the specified item at the specified index.
 	 * 
 	 * @param index
-	 *            the index to insert the node
+	 *            the index to insert the item
 	 * @param item
 	 *            the item to insert
 	 */
 	public void add(int index, Item item) {
 
 		// TODO Check edge cases for head and tail and reuse code from before
-		// TODO Otherwise, go through and find the desired node.
+		// TODO Otherwise, go through and find the desired item.
 		// TODO Create a new node and fix pointers.
-		// TODO Increase number of nodes
+		// TODO Increase number of items
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 
 		// TODO Fix pointers
 
-		// TODO decrease number of nodes in doubly linked list
+		// TODO decrease number of items
 
 		// TODO fix returned value
 
@@ -113,9 +113,9 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 		rangeCheck(index);
 
 		// TODO Check edge case for head and reuse code from before
-		// TODO Otherwise, go through and find the desired node.
+		// TODO Otherwise, go through and find the desired item.
 		// TODO Create a new node and fix pointers.
-		// TODO Decrease number of nodes
+		// TODO Decrease number of items
 		return null;
 	}
 
@@ -155,13 +155,13 @@ public class SinglyLinkedListExercise<Item> implements Iterable<Item> {
 	 * A method for creating an iterator for the singly linked list.
 	 */
 	public Iterator<Item> iterator() {
-		return new SinglyLinkedListIterator();
+		return new ListIterator();
 	}
 
 	/**
-	 * A subclass that defines the iterator for the singly linked list.
+	 * A subclass that defines the iterator for the singly linked.
 	 */
-	private class SinglyLinkedListIterator implements Iterator<Item> {
+	private class ListIterator implements Iterator<Item> {
 		private Node current = first;
 
 		public boolean hasNext() {
