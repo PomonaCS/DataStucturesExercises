@@ -1,3 +1,5 @@
+package algs4;
+
 /**
  * An Association class to replace the one from structure5, for Pomona's CS62
  * class. Associations store two values together, one as a key and one as a value.

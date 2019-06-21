@@ -1,3 +1,5 @@
+package algs4;
+
 /**
  * A Binary Search Tree implementation based on the implementation presented in
  * Sedgewick and Wayne's Algorithms textbook. Can have methods added if
