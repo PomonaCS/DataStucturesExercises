@@ -1,4 +1,4 @@
-package algs4;
+package algs4ex;
 
 import java.util.Iterator;
 

@@ -1,4 +1,4 @@
-package algs4;
+package algs4ex;
 
 /**
  * A Binary Search Tree implementation based on the implementation presented in

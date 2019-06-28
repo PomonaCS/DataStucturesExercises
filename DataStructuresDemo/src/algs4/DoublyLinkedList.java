@@ -12,15 +12,15 @@ import java.util.Iterator;
  *
  */
 public class DoublyLinkedList<Item> implements Iterable<Item> {
-	private Node first; // head of the doubly linked list
-	private Node last; // tail of the doubly linked list
+	public Node first; // head of the doubly linked list
+	public Node last; // tail of the doubly linked list
 	private int n; // number of nodes in the doubly linked list
 
 	/**
 	 * This nested class defines the nodes in the doubly linked list with a value
 	 * and pointers to the previous and next node they are connected.
 	 */
-	private class Node {
+	public class Node {
 		Item item;
 		Node next;
 		Node prev;

@@ -1,8 +1,9 @@
 package algs4;
 
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.lang.IndexOutOfBoundsException;
+import java.util.Iterator;
 
 /**
  * The {@code ArrayList} class represents a resizing list. It has been
